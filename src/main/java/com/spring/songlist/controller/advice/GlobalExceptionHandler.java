@@ -1,6 +1,7 @@
 package com.spring.songlist.controller.advice;
 
 import com.spring.songlist.exception.AlreadyExistsException;
+import com.spring.songlist.exception.ResourceNotFoundException;
 import com.spring.songlist.model.GenericResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,12 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new GenericResponse(errors.toString(), HttpStatus.BAD_REQUEST.toString()));
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<GenericResponse> handleResourceNotFound(ResourceNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new GenericResponse(ex.getMessage(), HttpStatus.NOT_FOUND.toString()));
     }
 
     @ExceptionHandler(Exception.class)

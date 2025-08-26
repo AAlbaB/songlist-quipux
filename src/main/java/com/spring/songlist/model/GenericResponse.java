@@ -36,8 +36,7 @@ public class GenericResponse {
     public String toJson() {
         return "{"
                 + " \"message\":\"" + message + "\","
-                + "\"status\":\""
-                + status + "\","
+                + "\"status\":\"" + status + "\","
                 + " \"timestamp\":\"" + timestamp + "\"}";
     }
 }

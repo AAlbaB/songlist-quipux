@@ -39,10 +39,4 @@ public class SongList {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "song_list_id")
     private List<Song> songs;
-
-    public SongList(String name, String description, List<Song> songs) {
-        this.name = name;
-        this.description = description;
-        this.songs = songs;
-    }
 }
