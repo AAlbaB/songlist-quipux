@@ -9,4 +9,6 @@ public interface SongListRepository extends JpaRepository<SongList, Long> {
     boolean existsByName(String name);
 
     SongList findByName(String name);
+
+    void deleteByName(String name);
 }

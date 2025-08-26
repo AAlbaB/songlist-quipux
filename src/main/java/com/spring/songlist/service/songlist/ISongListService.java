@@ -12,4 +12,5 @@ public interface ISongListService {
 
     SongList getSongListByName(String name);
 
+    void deleteSongListByName(String name);
 }

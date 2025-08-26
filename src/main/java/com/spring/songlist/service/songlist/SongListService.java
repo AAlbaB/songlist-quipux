@@ -4,6 +4,7 @@ import com.spring.songlist.exception.AlreadyExistsException;
 import com.spring.songlist.exception.ResourceNotFoundException;
 import com.spring.songlist.model.SongList;
 import com.spring.songlist.repository.SongListRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,15 @@ public class SongListService implements ISongListService {
             throw new ResourceNotFoundException("Lista no encontrada: " + name);
         }
         return songList;
+    }
+
+    @Override
+    @Transactional
+    public void deleteSongListByName(String name) {
+        SongList songList = songListRepository.findByName(name);
+        if (songList == null) {
+            throw new ResourceNotFoundException("Lista no encontrada: " + name);
+        }
+        songListRepository.deleteByName(name);
     }
 }

@@ -45,13 +45,24 @@ public class SongListController {
     }
 
     @GetMapping("/{listName}")
-    public ResponseEntity<GenericResponse> getCategoryByName(@PathVariable String listName) {
+    public ResponseEntity<GenericResponse> getSongListByName(@PathVariable String listName) {
         SongList theSongList = songListService.getSongListByName(listName);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(SonListIndividualResponse.songListBuilder()
                         .songlist(theSongList)
                         .status(String.valueOf(HttpStatus.OK))
+                        .message("Exitoso")
+                        .build());
+    }
+
+    @DeleteMapping("/{listName}")
+    public ResponseEntity<GenericResponse> deleteSongListByName(@PathVariable String listName) {
+        songListService.deleteSongListByName(listName);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(SonListIndividualResponse.songListBuilder()
+                        .status(String.valueOf(HttpStatus.NO_CONTENT))
                         .message("Exitoso")
                         .build());
     }
