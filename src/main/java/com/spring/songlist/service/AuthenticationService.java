@@ -29,7 +29,7 @@ public class AuthenticationService {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(AuthenticationResponse.tokenBuilder()
                             .token(jwt)
-                            .status(HttpStatus.OK.toString())
+                            .status(String.valueOf(HttpStatus.OK))
                             .message("Exitoso")
                             .build());
 
@@ -37,14 +37,14 @@ public class AuthenticationService {
         } catch (AuthenticationException authEx) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(AuthenticationResponse.tokenBuilder()
-                            .status(HttpStatus.UNAUTHORIZED.toString())
+                            .status(String.valueOf(HttpStatus.UNAUTHORIZED))
                             .message("Acceso denegado, credenciales incorrectas")
                             .build());
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(AuthenticationResponse.tokenBuilder()
-                            .status(HttpStatus.INTERNAL_SERVER_ERROR.toString())
+                            .status(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR))
                             .message("Ha ocurrido un error en la autenticacion")
                             .build());
         }
