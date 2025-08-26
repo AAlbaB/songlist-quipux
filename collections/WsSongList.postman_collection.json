@@ -1,0 +1,1810 @@
+{
+	"info": {
+		"_postman_id": "d658c18d-0536-456a-af6c-cf8610a4dacf",
+		"name": "WsSongList",
+		"description": "Colecciones para el Ws de Song List- Prueba de conocimientos técnicos Quipux",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45694327"
+	},
+	"item": [
+		{
+			"name": "authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Status: \"+ pm.response.code);\r",
+							"\r",
+							"if (pm.response.code == 200){\r",
+							"    var responseJson = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    pm.test(\"Response code is 000\", function () {\r",
+							"        pm.expect(responseJson.status).to.eql(\"200 OK\");\r",
+							"    });\r",
+							"    pm.test(\"Response message is Success\", function () {\r",
+							"        pm.expect(responseJson.message).to.eql(\"Exitoso\");\r",
+							"    });\r",
+							"    pm.test(\"Body contains token\", function () {\r",
+							"        pm.expect(responseJson).to.haveOwnProperty(\"token\");\r",
+							"    });\r",
+							"\r",
+							"    var token = responseJson.token;\r",
+							"    pm.environment.set(\"WsSongListToken\", token);\r",
+							"\r",
+							"} else {\r",
+							"    console.log(\"Error al obtener Token \")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{WsSongListUsername}}\",\r\n    \"password\": \"{{WsSongListPassword}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{WsSongListDomain}}/authenticate",
+					"host": [
+						"{{WsSongListDomain}}"
+					],
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getTokenSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{WsSongListUsername}}\",\r\n    \"password\": \"{{WsSongListPassword}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WsSongListDomain}}/authenticate",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:20:39 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Exitoso\",\n    \"status\": \"200 OK\",\n    \"timestamp\": \"2025-08-26 22:20:39\",\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJXc1NvbmdMaXN0VXNlciIsImlhdCI6MTc1NjI0NjgzOSwiZXhwIjoxNzU2MjQ2ODk5fQ.hN3opWrnUaCpBKlLF4nMSHJ3TK_zOqBXFBcYd5UYydabQjxaQanHnih8xXt22Z-cA4U14EjNHRibhm63dn-Ohw\"\n}"
+				},
+				{
+					"name": "getTokenFail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{WsSongListUsername}}\",\r\n    \"password\": \"{{WsSongListPassword}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WsSongListDomain}}/authenticate",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:21:18 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Acceso denegado, credenciales incorrectas\",\n    \"status\": \"401 UNAUTHORIZED\",\n    \"timestamp\": \"2025-08-26 22:21:18\"\n}"
+				}
+			]
+		},
+		{
+			"name": "saveSongList",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const postRequest = {\r",
+							"    url: 'http://localhost:8080/WsSongList/authenticate',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        'Accept': '*/*'\r",
+							"    },\r",
+							"    body: {    \r",
+							"    mode: 'raw', \r",
+							"    raw: JSON.stringify({\"username\": pm.environment.get(\"WsSongListUsername\"),\r",
+							"    \"password\": pm.environment.get(\"WsSongListPassword\") })\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(postRequest, (error, response) =>{\r",
+							"    if (error) {\r",
+							"        console.log(error);\r",
+							"    } else {\r",
+							"        console.log(response.json());\r",
+							"        pm.environment.set(\"WsSongListToken\", response.json().token);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{WsSongListToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Sara Landry - Top 5\",\r\n  \"descripcion\": \"Canciones más populares de Sara Landry\",\r\n  \"canciones\": [\r\n    {\r\n      \"titulo\": \"Heaven\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Chaos\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Sacrifice\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Sacrifice EP\",\r\n      \"anno\": \"2022\",\r\n      \"genero\": \"Industrial Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Prisoner of Your Touch\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Prisoner of Your Touch\",\r\n      \"anno\": \"2021\",\r\n      \"genero\": \"Hard Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Euphoria\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Euphoria\",\r\n      \"anno\": \"2020\",\r\n      \"genero\": \"Techno\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{WsSongListDomain}}/lists",
+					"host": [
+						"{{WsSongListDomain}}"
+					],
+					"path": [
+						"lists"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "saveSongListSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Sara Landry - Top 5\",\r\n  \"descripcion\": \"Canciones más populares de Sara Landry\",\r\n  \"canciones\": [\r\n    {\r\n      \"titulo\": \"Heaven\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Chaos\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Sacrifice\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Sacrifice EP\",\r\n      \"anno\": \"2022\",\r\n      \"genero\": \"Industrial Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Prisoner of Your Touch\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Prisoner of Your Touch\",\r\n      \"anno\": \"2021\",\r\n      \"genero\": \"Hard Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Euphoria\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Euphoria\",\r\n      \"anno\": \"2020\",\r\n      \"genero\": \"Techno\"\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:23:16 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Exitoso\",\n    \"status\": \"201 CREATED\",\n    \"timestamp\": \"2025-08-26 22:23:16\",\n    \"lista_canciones\": {\n        \"id\": 3,\n        \"nombre\": \"Sara Landry - Top 5\",\n        \"descripcion\": \"Canciones más populares de Sara Landry\",\n        \"canciones\": [\n            {\n                \"id\": 11,\n                \"titulo\": \"Heaven\",\n                \"artista\": \"Sara Landry\",\n                \"album\": \"Heaven / Chaos\",\n                \"anno\": \"2023\",\n                \"genero\": \"Techno\"\n            },\n            {\n                \"id\": 12,\n                \"titulo\": \"Chaos\",\n                \"artista\": \"Sara Landry\",\n                \"album\": \"Heaven / Chaos\",\n                \"anno\": \"2023\",\n                \"genero\": \"Techno\"\n            },\n            {\n                \"id\": 13,\n                \"titulo\": \"Sacrifice\",\n                \"artista\": \"Sara Landry\",\n                \"album\": \"Sacrifice EP\",\n                \"anno\": \"2022\",\n                \"genero\": \"Industrial Techno\"\n            },\n            {\n                \"id\": 14,\n                \"titulo\": \"Prisoner of Your Touch\",\n                \"artista\": \"Sara Landry\",\n                \"album\": \"Prisoner of Your Touch\",\n                \"anno\": \"2021\",\n                \"genero\": \"Hard Techno\"\n            },\n            {\n                \"id\": 15,\n                \"titulo\": \"Euphoria\",\n                \"artista\": \"Sara Landry\",\n                \"album\": \"Euphoria\",\n                \"anno\": \"2020\",\n                \"genero\": \"Techno\"\n            }\n        ]\n    }\n}"
+				},
+				{
+					"name": "saveSongListAlreadyExist",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Sara Landry - Top 5\",\r\n  \"descripcion\": \"Canciones más populares de Sara Landry\",\r\n  \"canciones\": [\r\n    {\r\n      \"titulo\": \"Heaven\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Chaos\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Sacrifice\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Sacrifice EP\",\r\n      \"anno\": \"2022\",\r\n      \"genero\": \"Industrial Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Prisoner of Your Touch\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Prisoner of Your Touch\",\r\n      \"anno\": \"2021\",\r\n      \"genero\": \"Hard Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Euphoria\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Euphoria\",\r\n      \"anno\": \"2020\",\r\n      \"genero\": \"Techno\"\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:23:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Sara Landry - Top 5: Lista ya existe\",\n    \"status\": \"400 BAD_REQUEST\",\n    \"timestamp\": \"2025-08-26 22:23:52\"\n}"
+				},
+				{
+					"name": "saveSongListFail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"\",\r\n  \"descripcion\": \"Canciones más populares de Sara Landry\",\r\n  \"canciones\": [\r\n    {\r\n      \"titulo\": \"Heaven\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Chaos\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Sacrifice\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Sacrifice EP\",\r\n      \"anno\": \"2022\",\r\n      \"genero\": \"Industrial Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Prisoner of Your Touch\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Prisoner of Your Touch\",\r\n      \"anno\": \"2021\",\r\n      \"genero\": \"Hard Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Euphoria\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Euphoria\",\r\n      \"anno\": \"2020\",\r\n      \"genero\": \"Techno\"\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:24:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{name=El nombre es obligatorio}\",\n    \"status\": \"400 BAD_REQUEST\",\n    \"timestamp\": \"2025-08-26 22:24:50\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Sara Landry - Top 5\",\r\n  \"descripcion\": \"Canciones más populares de Sara Landry\",\r\n  \"canciones\": [\r\n    {\r\n      \"titulo\": \"Heaven\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Chaos\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Heaven / Chaos\",\r\n      \"anno\": \"2023\",\r\n      \"genero\": \"Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Sacrifice\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Sacrifice EP\",\r\n      \"anno\": \"2022\",\r\n      \"genero\": \"Industrial Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Prisoner of Your Touch\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Prisoner of Your Touch\",\r\n      \"anno\": \"2021\",\r\n      \"genero\": \"Hard Techno\"\r\n    },\r\n    {\r\n      \"titulo\": \"Euphoria\",\r\n      \"artista\": \"Sara Landry\",\r\n      \"album\": \"Euphoria\",\r\n      \"anno\": \"2020\",\r\n      \"genero\": \"Techno\"\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:26:10 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "listsSongList",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const postRequest = {\r",
+							"    url: 'http://localhost:8080/WsSongList/authenticate',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        'Accept': '*/*'\r",
+							"    },\r",
+							"    body: {    \r",
+							"    mode: 'raw', \r",
+							"    raw: JSON.stringify({\"username\": pm.environment.get(\"WsSongListUsername\"),\r",
+							"    \"password\": pm.environment.get(\"WsSongListPassword\") })\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(postRequest, (error, response) =>{\r",
+							"    if (error) {\r",
+							"        console.log(error);\r",
+							"    } else {\r",
+							"        console.log(response.json());\r",
+							"        pm.environment.set(\"WsSongListToken\", response.json().token);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{WsSongListToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{WsSongListDomain}}/lists",
+					"host": [
+						"{{WsSongListDomain}}"
+					],
+					"path": [
+						"lists"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getAllSongLists",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:25:07 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Exitoso\",\n    \"status\": \"200 OK\",\n    \"timestamp\": \"2025-08-26 22:25:07\",\n    \"listas_canciones\": [\n        {\n            \"id\": 1,\n            \"nombre\": \"Billie Eilish - Top 5\",\n            \"descripcion\": \"Canciones más populares de Billie Eilish\",\n            \"canciones\": [\n                {\n                    \"id\": 1,\n                    \"titulo\": \"bad guy\",\n                    \"artista\": \"Billie Eilish\",\n                    \"album\": \"WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?\",\n                    \"anno\": \"2019\",\n                    \"genero\": \"Pop\"\n                },\n                {\n                    \"id\": 2,\n                    \"titulo\": \"bury a friend\",\n                    \"artista\": \"Billie Eilish\",\n                    \"album\": \"WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?\",\n                    \"anno\": \"2019\",\n                    \"genero\": \"Pop\"\n                },\n                {\n                    \"id\": 3,\n                    \"titulo\": \"when the party's over\",\n                    \"artista\": \"Billie Eilish\",\n                    \"album\": \"WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?\",\n                    \"anno\": \"2019\",\n                    \"genero\": \"Ballad\"\n                },\n                {\n                    \"id\": 4,\n                    \"titulo\": \"ocean eyes\",\n                    \"artista\": \"Billie Eilish\",\n                    \"album\": \"Don't Smile at Me\",\n                    \"anno\": \"2016\",\n                    \"genero\": \"Indie\"\n                },\n                {\n                    \"id\": 5,\n                    \"titulo\": \"everything i wanted\",\n                    \"artista\": \"Billie Eilish\",\n                    \"album\": \"Single\",\n                    \"anno\": \"2019\",\n                    \"genero\": \"Pop\"\n                }\n            ]\n        },\n        {\n            \"id\": 2,\n            \"nombre\": \"Rüfüs Du Sol - Top 5\",\n            \"descripcion\": \"Canciones más populares de Rüfüs Du Sol\",\n            \"canciones\": [\n                {\n                    \"id\": 6,\n                    \"titulo\": \"Innerbloom\",\n                    \"artista\": \"Rüfüs Du Sol\",\n                    \"album\": \"Bloom\",\n                    \"anno\": \"2015\",\n                    \"genero\": \"Electronic\"\n                },\n                {\n                    \"id\": 7,\n                    \"titulo\": \"Underwater\",\n                    \"artista\": \"Rüfüs Du Sol\",\n                    \"album\": \"SOLACE\",\n                    \"anno\": \"2018\",\n                    \"genero\": \"Electronic\"\n                },\n                {\n                    \"id\": 8,\n                    \"titulo\": \"Alive\",\n                    \"artista\": \"Rüfüs Du Sol\",\n                    \"album\": \"Surrender\",\n                    \"anno\": \"2021\",\n                    \"genero\": \"Electronic\"\n                },\n                {\n                    \"id\": 9,\n                    \"titulo\": \"On My Knees\",\n                    \"artista\": \"Rüfüs Du Sol\",\n                    \"album\": \"Surrender\",\n                    \"anno\": \"2021\",\n                    \"genero\": \"Electronic\"\n                },\n                {\n                    \"id\": 10,\n                    \"titulo\": \"Next to Me\",\n                    \"artista\": \"Rüfüs Du Sol\",\n                    \"album\": \"Surrender\",\n                    \"anno\": \"2021\",\n                    \"genero\": \"Electronic\"\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"nombre\": \"Sara Landry - Top 5\",\n            \"descripcion\": \"Canciones más populares de Sara Landry\",\n            \"canciones\": [\n                {\n                    \"id\": 11,\n                    \"titulo\": \"Heaven\",\n                    \"artista\": \"Sara Landry\",\n                    \"album\": \"Heaven / Chaos\",\n                    \"anno\": \"2023\",\n                    \"genero\": \"Techno\"\n                },\n                {\n                    \"id\": 12,\n                    \"titulo\": \"Chaos\",\n                    \"artista\": \"Sara Landry\",\n                    \"album\": \"Heaven / Chaos\",\n                    \"anno\": \"2023\",\n                    \"genero\": \"Techno\"\n                },\n                {\n                    \"id\": 13,\n                    \"titulo\": \"Sacrifice\",\n                    \"artista\": \"Sara Landry\",\n                    \"album\": \"Sacrifice EP\",\n                    \"anno\": \"2022\",\n                    \"genero\": \"Industrial Techno\"\n                },\n                {\n                    \"id\": 14,\n                    \"titulo\": \"Prisoner of Your Touch\",\n                    \"artista\": \"Sara Landry\",\n                    \"album\": \"Prisoner of Your Touch\",\n                    \"anno\": \"2021\",\n                    \"genero\": \"Hard Techno\"\n                },\n                {\n                    \"id\": 15,\n                    \"titulo\": \"Euphoria\",\n                    \"artista\": \"Sara Landry\",\n                    \"album\": \"Euphoria\",\n                    \"anno\": \"2020\",\n                    \"genero\": \"Techno\"\n                }\n            ]\n        }\n    ]\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:25:42 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "getSongListByName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const postRequest = {\r",
+							"    url: 'http://localhost:8080/WsSongList/authenticate',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        'Accept': '*/*'\r",
+							"    },\r",
+							"    body: {    \r",
+							"    mode: 'raw', \r",
+							"    raw: JSON.stringify({\"username\": pm.environment.get(\"WsSongListUsername\"),\r",
+							"    \"password\": pm.environment.get(\"WsSongListPassword\") })\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(postRequest, (error, response) =>{\r",
+							"    if (error) {\r",
+							"        console.log(error);\r",
+							"    } else {\r",
+							"        console.log(response.json());\r",
+							"        pm.environment.set(\"WsSongListToken\", response.json().token);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{WsSongListToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+					"host": [
+						"{{WsSongListDomain}}"
+					],
+					"path": [
+						"lists",
+						"{{WsSongListName}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getSongListByNameSuccess",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists",
+								"{{WsSongListName}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:26:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Exitoso\",\n    \"status\": \"200 OK\",\n    \"timestamp\": \"2025-08-26 22:26:27\",\n    \"lista_canciones\": {\n        \"id\": 1,\n        \"nombre\": \"Billie Eilish - Top 5\",\n        \"descripcion\": \"Canciones más populares de Billie Eilish\",\n        \"canciones\": [\n            {\n                \"id\": 1,\n                \"titulo\": \"bad guy\",\n                \"artista\": \"Billie Eilish\",\n                \"album\": \"WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?\",\n                \"anno\": \"2019\",\n                \"genero\": \"Pop\"\n            },\n            {\n                \"id\": 2,\n                \"titulo\": \"bury a friend\",\n                \"artista\": \"Billie Eilish\",\n                \"album\": \"WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?\",\n                \"anno\": \"2019\",\n                \"genero\": \"Pop\"\n            },\n            {\n                \"id\": 3,\n                \"titulo\": \"when the party's over\",\n                \"artista\": \"Billie Eilish\",\n                \"album\": \"WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?\",\n                \"anno\": \"2019\",\n                \"genero\": \"Ballad\"\n            },\n            {\n                \"id\": 4,\n                \"titulo\": \"ocean eyes\",\n                \"artista\": \"Billie Eilish\",\n                \"album\": \"Don't Smile at Me\",\n                \"anno\": \"2016\",\n                \"genero\": \"Indie\"\n            },\n            {\n                \"id\": 5,\n                \"titulo\": \"everything i wanted\",\n                \"artista\": \"Billie Eilish\",\n                \"album\": \"Single\",\n                \"anno\": \"2019\",\n                \"genero\": \"Pop\"\n            }\n        ]\n    }\n}"
+				},
+				{
+					"name": "NotFound",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists",
+								"{{WsSongListName}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:26:43 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Lista no encontrada: Billie Eilish - Top\",\n    \"status\": \"404 NOT_FOUND\",\n    \"timestamp\": \"2025-08-26 22:26:43\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists",
+								"{{WsSongListName}}"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:27:19 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "deleteSongListByName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const postRequest = {\r",
+							"    url: 'http://localhost:8080/WsSongList/authenticate',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        'Accept': '*/*'\r",
+							"    },\r",
+							"    body: {    \r",
+							"    mode: 'raw', \r",
+							"    raw: JSON.stringify({\"username\": pm.environment.get(\"WsSongListUsername\"),\r",
+							"    \"password\": pm.environment.get(\"WsSongListPassword\") })\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(postRequest, (error, response) =>{\r",
+							"    if (error) {\r",
+							"        console.log(error);\r",
+							"    } else {\r",
+							"        console.log(response.json());\r",
+							"        pm.environment.set(\"WsSongListToken\", response.json().token);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{WsSongListToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+					"host": [
+						"{{WsSongListDomain}}"
+					],
+					"path": [
+						"lists",
+						"{{WsSongListName}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "deleteSongListByNameSuccess",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists",
+								"{{WsSongListName}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:27:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "NotFound",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists",
+								"{{WsSongListName}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:28:21 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Lista no encontrada: Billie Eilish - Top 5\",\n    \"status\": \"404 NOT_FOUND\",\n    \"timestamp\": \"2025-08-26 22:28:21\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/lists/{{WsSongListName}}",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"lists",
+								"{{WsSongListName}}"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:29:58 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "getTokenSpotify",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const postRequest = {\r",
+							"    url: 'http://localhost:8080/WsSongList/authenticate',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        'Accept': '*/*'\r",
+							"    },\r",
+							"    body: {    \r",
+							"    mode: 'raw', \r",
+							"    raw: JSON.stringify({\"username\": pm.environment.get(\"WsSongListUsername\"),\r",
+							"    \"password\": pm.environment.get(\"WsSongListPassword\") })\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(postRequest, (error, response) =>{\r",
+							"    if (error) {\r",
+							"        console.log(error);\r",
+							"    } else {\r",
+							"        console.log(response.json());\r",
+							"        pm.environment.set(\"WsSongListToken\", response.json().token);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{WsSongListToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{WsSongListDomain}}/spotify/token",
+					"host": [
+						"{{WsSongListDomain}}"
+					],
+					"path": [
+						"spotify",
+						"token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getTokenSpotifySuccess",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/spotify/token",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"spotify",
+								"token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:30:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Exitoso\",\n    \"status\": \"200 OK\",\n    \"timestamp\": \"2025-08-26 22:30:15\",\n    \"token\": \"BQArAbeCy6eXSwI0-lVRmlW20OOIQcSh6oO_CEMCzqsy4Wq3Ap_GxARg-q1QvVXJ1TVlRNCY-gCv-xchahiKN6FEFWXLqyphw6gvFO6OqguDT41fkFEMobTIluHIxu-LaL9If6ZgdfE\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WsSongListDomain}}/spotify/token",
+							"host": [
+								"{{WsSongListDomain}}"
+							],
+							"path": [
+								"spotify",
+								"token"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; frame-ancestors 'self';"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Aug 2025 22:30:36 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "WSBancoTu60InmobiliarioToken",
+			"value": ""
+		}
+	]
+}
