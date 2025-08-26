@@ -27,7 +27,7 @@ public class SongList {
 
     @JsonProperty("nombre")
     @NotBlank(message = "El nombre es obligatorio")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @JsonProperty("descripcion")
@@ -39,4 +39,10 @@ public class SongList {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "song_list_id")
     private List<Song> songs;
+
+    public SongList(String name, String description, List<Song> songs) {
+        this.name = name;
+        this.description = description;
+        this.songs = songs;
+    }
 }
