@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SonglistApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SonglistApplication.class, args);
+        SpringApplication.run(SonglistApplication.class, args);
 	}
-
 }
